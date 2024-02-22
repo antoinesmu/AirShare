@@ -45,19 +45,6 @@ AirShare uses a number of technologies to work properly:
 - [MariaDB]
 
 
-## Installation
-AirShare requires [Exemple](exemple_link) to run.
-
-Maven is used with the following dependecies :
-### X Module:
-|groupId   |artifactId      | version            | scope|
-|----------|----------------|--------------------|------|
-| javax.servlet | javax.servlet-api | 4.0.1  | provided |
-### Y Module:
-|groupId   |artifactId      | version            | scope|
-|----------|----------------|--------------------|------|
-| javax.servlet | javax.servlet-api | 4.0.1  | provided |
-
 
 Thanks for reading
 
