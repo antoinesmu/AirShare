@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <style>
+
+        @import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap");
+        html, body {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            font-family: "Montserrat", sans-serif;
+        }
+        @media only screen and (max-width: 600px) {
+            html html #left_part, html body #left_part, body html #left_part, body body #left_part {
+                width: 0%;
+            }
+            html html #right_part-sign_up, html body #right_part-sign_up, body html #right_part-sign_up, body body #right_part-sign_up {
+                width: 100%;
+            }
+            html html #right_part-sign_in, html body #right_part-sign_in, body html #right_part-sign_in, body body #right_part-sign_in {
+                width: 100%;
+            }
+        }
+        html #left_part, body #left_part {
+            width: 50%;
+            height: 100%;
+            background-image: url("../../assets/login_page/img/login_plane.jpg");
+            background-size: cover;
+            background-position: center;
+        }
+        html #right_part-sign_in, body #right_part-sign_in {
+            width: 50%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        html #right_part-sign_in form, body #right_part-sign_in form {
+            width: 70%;
+            min-height: 80%;
+            display: flex;
+            flex-direction: column;
+            align-items: start;
+            justify-content: space-around;
+        }
+        html #right_part-sign_in form h1, body #right_part-sign_in form h1 {
+            font-size: 3em;
+            margin-bottom: 0px;
+        }
+        html #right_part-sign_in form h2, body #right_part-sign_in form h2 {
+            margin-top: 0px;
+            margin-bottom: 1.2em;
+        }
+        html #right_part-sign_in form input, body #right_part-sign_in form input {
+            width: 100%;
+            padding-top: 15px;
+            padding-bottom: 15px;
+            border: none;
+            font-size: 1em;
+            border-bottom: 1px solid #252525;
+            outline: 0;
+        }
+        html #right_part-sign_in form p, body #right_part-sign_in form p {
+            align-self: end;
+        }
+        html #right_part-sign_in form .btns, body #right_part-sign_in form .btns {
+            width: 100%;
+            height: 80px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+        html #right_part-sign_up form .btns .disabled, body #right_part-sign_up form .btns .disabled {
+            width: 100%;
+            background-color: rgb(119, 119, 119);
+            color: white;
+            border-radius: 0.5em;
+            padding-top: 7px;
+            padding-bottom: 7px;
+            font-size: 1.2em;
+            border: 1px solid #252525;
+            cursor: not-allowed;
+        }
+
+        html #right_part-sign_in form .btns button, body #right_part-sign_in form .btns button {
+            width: 100%;
+            background-color: #252525;
+            color: white;
+            border-radius: 0.5em;
+            padding-top: 7px;
+            padding-bottom: 7px;
+            font-size: 1.2em;
+            border: 1px solid #252525;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        html #right_part-sign_in form .btns button:hover, body #right_part-sign_in form .btns button:hover {
+            background-color: white;
+            color: #252525;
+        }
+        html #right_part-sign_up, body #right_part-sign_up {
+            width: 50%;
+            height: 100%;
+            display: none;
+            align-items: center;
+            justify-content: center;
+        }
+        html #right_part-sign_up form, body #right_part-sign_up form {
+            width: 70%;
+            min-height: 80%;
+            display: flex;
+            flex-direction: column;
+            align-items: start;
+            justify-content: space-around;
+        }
+        html #right_part-sign_up form h1, body #right_part-sign_up form h1 {
+            font-size: 3em;
+            margin-bottom: 0px;
+        }
+        html #right_part-sign_up form h2, body #right_part-sign_up form h2 {
+            margin-top: 0px;
+            margin-bottom: 1.2em;
+        }
+        html #right_part-sign_up form input, body #right_part-sign_up form input {
+            width: 100%;
+            padding-top: 15px;
+            padding-bottom: 15px;
+            border: none;
+            font-size: 1em;
+            border-bottom: 1px solid #252525;
+            outline: 0;
+        }
+        html #right_part-sign_up form p, body #right_part-sign_up form p {
+            align-self: end;
+        }
+        html #right_part-sign_up form .btns, body #right_part-sign_up form .btns {
+            width: 100%;
+            height: 80px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+        html #right_part-sign_up form .btns button, body #right_part-sign_up form .btns button {
+            width: 100%;
+            background-color: #252525;
+            color: white;
+            border-radius: 0.5em;
+            padding-top: 7px;
+            padding-bottom: 7px;
+            font-size: 1.2em;
+            border: 1px solid #252525;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        html #right_part-sign_up form .btns button:hover, body #right_part-sign_up form .btns button:hover {
+            background-color: white;
+            color: #252525;
+        }
+
+    </style>
+    <title>Login Page</title>
+</head>
+<body>
+
+<div id="left_part">
+</div>
+
+<div id="right_part-sign_in">
+
+    <form method="post" action="login">
+
+        <h1>Sign in !</h1>
+        <h2>Pilot, identify yourself !</h2>
+
+        #springFormInput("user.login" "id='inputId' placeholder='Login *'")
+        #springFormPasswordInput("user.password" "id='inputPassSignin' placeholder='Password *' type='password'")
+
+        <p>${feedback_sign-in}</p>
+
+        <div class="btns">
+            <button id="submit-log_in" type="submit">Log in</button>
+            <button id="switch-new_account">Create an account</button>
+        </div>
+    </form>
+</div>
+
+<div id="right_part-sign_up">
+
+    <form method="POST">
+        <h1>Sign up !</h1>
+        <h2>Join our team of airplane pilots !</h2>
+
+
+        #springFormInput("user.login" "id='login_signup' placeholder='Login or email *' class='login'")
+        #springFormInput("user.email" "id='mail_address_signup' placeholder='Mail address *' class='email'")
+        #springFormPasswordInput("user.password" "id='password_signup' placeholder='Password *' class='password'")
+
+        <p id="error_feedback">* required</p>
+        <div id="feedback_sign-up"></div>
+
+        <div class="btns">
+            <button id="submit-new_account" type="submit">Create an account</button>
+            <button id="switch-log_in">Log in</button>
+        </div>
+
+    </form>
+</div>
+<script>
+
+    //Buttons
+    const btnSubmitLog_in = document.getElementById("submit-log_in");
+    const btnSubmitNew_account = document.getElementById("submit-new_account");
+    const btnSwitchLog_in = document.getElementById("switch-log_in");
+    const btnSwitchNew_account = document.getElementById("switch-new_account");
+
+    //Part
+    const partCreate_account = document.getElementById("right_part-sign_up");
+    const partLog_in = document.getElementById("right_part-sign_in");
+
+
+    //Switch between login and newaccount
+    btnSwitchNew_account.addEventListener('click', function(ev) {
+        SwitchNew_account();
+        ev.preventDefault();
+
+    } );
+
+    btnSwitchLog_in.addEventListener('click', function(ev) {
+        SwitchLog_in();
+        ev.preventDefault();
+
+    } );
+
+    function SwitchNew_account(){
+        console.log("Switch to new account");
+        partCreate_account.style.display = "flex";
+        partLog_in.style.display = "none";
+        inputPasswordSignup.text = null;
+        inputLoginSignup.text = null;
+    }
+
+    function SwitchLog_in(){
+        console.log("Switch to log in");
+        partCreate_account.style.display = "none";
+        partLog_in.style.display = "flex";
+        inputPasswordSignup.text = null;
+        inputLoginSignup.text = null;
+    }
+
+    //Error Sign up
+    const inputLoginSignup = document.querySelector(".login");
+    const inputEmailSignup = document.querySelector(".email");
+    const inputPasswordSignup = document.querySelector(".password");
+
+    btnSubmitNew_account.addEventListener("click", (e) => {
+        let error = null;
+
+        console.log("->"+inputPasswordSignup.value);
+
+        if (!inputPasswordSignup.value) {
+            error = "Please, choose a password";
+        }
+        if (!inputEmailSignup.value) {
+            error = "Please, choose an email";
+        }
+        if (!inputLoginSignup.value) {
+            error = "Please, choose a login";
+        }
+
+        if (error!=null) {
+            e.preventDefault();
+            document.getElementById("error_feedback").innerHTML = error;
+            return false;
+        } else {
+            alert("Successful registration !");
+            return true;
+        }
+    })
+
+
+</script>
+
+</body>
+</html>

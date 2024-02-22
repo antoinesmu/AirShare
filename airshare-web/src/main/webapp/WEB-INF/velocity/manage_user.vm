@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        html main .grid_container, body main .grid_container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        html main .grid_container #container, body main .grid_container #container {
+            width: 100%;
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            grid-template-rows: auto;
+            grid-gap: 40px;
+        }
+        html main .grid_container #container .card, body main .grid_container #container .card {
+            min-height: 300px;
+            height: 330px;
+            min-width: 300px;
+            flex: 1;
+            position: relative;
+            background-color: white;
+            padding: 20px;
+            border-radius: 32px;
+            background: #efeeee;
+            box-shadow: 15px 15px 30px #cbcaca, -15px -15px 30px #ffffff;
+        }
+        html main .grid_container #container .card h2, body main .grid_container #container .card h2 {
+            padding-bottom: 15px;
+        }
+        html main .grid_container #container .card .btn_container, body main .grid_container #container .card .btn_container {
+            width: 100%;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            position: absolute;
+            bottom: 0px;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+        html main .grid_container #container .card .btn_container button, body main .grid_container #container .card .btn_container button {
+            cursor: pointer;
+            padding: 10px;
+            border-radius: 16px;
+            width: 40%;
+            height: 45px;
+            border: none;
+            color: white;
+            transform: scale(1);
+            transition: all 0.2s ease-in-out;
+        }
+        html main .grid_container #container .card .btn_container button:hover, body main .grid_container #container .card .btn_container button:hover {
+            transform: scale(1.2);
+        }
+        html main .grid_container #container .card .btn_container .btn_upgrade, body main .grid_container #container .card .btn_container .btn_upgrade {
+            background-color: #8ac926;
+        }
+        html main .grid_container #container .card .btn_container .btn_decline, body main .grid_container #container .card .btn_container .btn_decline {
+            background-color: #ff595e;
+        }
+        @media only screen and (max-width: 1200px) {
+            html #container, body #container {
+                grid-template-columns: 1fr 1fr !important;
+            }
+        }
+        @media only screen and (max-width: 800px) {
+            html #container, body #container {
+                grid-template-columns: 1fr !important;
+                max-width: 400px;
+            }
+        }
+    </style>
+    <title>Management of users</title>
+</head>
+<body>
+
+#include("navbar_Admin.vm")
+
+<main>
+
+    <h1>Manage the users !</h1>
+    <div class="grid_container">
+        <div id="container"></div>
+    </div>
+</main>
+
+
+
+<script>
+    const divContainer = document.getElementById("container");
+    const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+
+
+
+    function DisplayUsers() {
+        fetch("../api/requests/all_users")
+                .then(function(res) {
+                    if (res.ok) {
+                        return res.json();
+                    }
+                })
+                .then(function(value) {
+                    console.log(value);
+                    value.forEach((request) => CreateClasses(request));
+                })
+                .catch(function(err) {
+                    // Une erreur est survenue
+                });
+    }
+
+    function UpgradeUsers(id) {
+        console.log("Upgrade Users");
+        fetch("../api/admin/upgrade/"+id, {
+            method : "PUT"});
+        Clean(id);
+    }
+
+    function DeclineUsers(id) {
+        console.log("Decline Users");
+        fetch("../api/admin/decline/"+id, {
+            method : "PUT"});
+        Clean(id);
+    }
+
+
+    //ONLOAD
+    window.onload = () => {
+        DisplayUsers();
+    }
+
+
+    //CLEAN THE TABLE
+    function Clean(id) {
+        divContainer.removeChild(document.getElementById(id));
+    }
+
+    //Content generation
+    function CreateClasses(request) {
+        console.log("click")
+
+
+        let divCard = document.createElement("div");
+        divCard.classList.add("card");
+        divCard.setAttribute("id", request.user.id);
+        divContainer.appendChild(divCard);
+
+
+        let elementh2 = document.createElement("h2");
+        elementh2.innerText = request.firstname+" "+request.lastname;
+        divCard.appendChild(elementh2);
+
+
+        let elementh3 = document.createElement("h3");
+        elementh3.innerHTML = "<strong>Licence Number : </strong>"+request.licence;
+        divCard.appendChild(elementh3);
+
+        let elementp = document.createElement("p");
+        elementp.innerText = "Nationality : "+request.nationality;
+        divCard.appendChild(elementp);
+
+
+        var date = new Date(request.licence_date);
+        var DateFormat = date.toLocaleString(undefined, options);
+        let elementp1 = document.createElement("p");
+        elementp1.innerHTML = "<strong>Date of obtaining :</strong> "+DateFormat;
+        divCard.appendChild(elementp1);
+
+        let elementp2 = document.createElement("p");
+        elementp2.innerHTML = " <strong>Comment :</strong> "+request.comment;
+        divCard.appendChild(elementp2);
+
+
+        let divContainerBtn = document.createElement("div");
+        divContainerBtn.classList.add("btn_container");
+        divCard.appendChild(divContainerBtn);
+
+        let btn_validation = document.createElement("button");
+        btn_validation.classList.add("btn_upgrade");
+        btn_validation.innerText = "Upgrade";
+        divContainerBtn.appendChild(btn_validation);
+        btn_validation.onclick = () => UpgradeUsers(request.user.id);
+
+        let btn_decline = document.createElement("button");
+        btn_decline.classList.add("btn_decline");
+        btn_decline.innerText = "Decline";
+        divContainerBtn.appendChild(btn_decline);
+        btn_decline.onclick = () => DeclineUsers(request.user.id);
+    }
+
+
+
+</script>
+</body>
+</html>

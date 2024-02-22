@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        html .float, body .float {
+            height: 100%;
+            position: relative;
+        }
+        html .float img, body .float img {
+            width: 30%;
+            position: absolute;
+            bottom: 0px;
+            left: 20%;
+            transform: translateX(50%) translateY(-10%);
+            transition: transform 1s linear;
+            z-index: 5;
+        }
+    </style>
+    <title>Airshare</title>
+</head>
+<body>
+
+#include("navbar.vm")
+
+<main class="float">
+    <img id="image" src="../../assets/login_page/img/flyingPlane.png">
+    <h1>Welcome to Airshare !</h1>
+    <h3>Connect, and discover a world where the pilots of the world share everything on their flights and their favorite planes!</h3>
+    <h3>If you also want to contribute to sharing, let us know that you are a pilot!</h3>
+</main>
+
+
+<script>
+
+    /*<-------------------- IMAGE QUI FLOTTE -------------------->*/
+    const float = document.getElementById("image");
+
+    document.onmousemove = function(event) {
+        const x = ((event.clientX*100)/innerWidth)-10;
+        const y = ((event.clientY*100)/innerHeight)-150;
+
+        float.style.transform = "translateX("+x+"% ) translateY("+y+"%)";
+    }
+
+</script>
+</body>
+</html>

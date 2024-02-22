@@ -1,0 +1,209 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <style>
+
+        html main, body main {
+            height: 85%;
+        }
+        html main .container, body main .container {
+            width: 100%;
+            min-height: 85%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        html main .container form, body main .container form {
+            width: 90%;
+            max-width: 800px;
+            display: flex;
+            flex-direction: column;
+            gap: 27px;
+        }
+        html main .container form .airportlocation, body main .container form .airportlocation {
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+            gap: 40px;
+        }
+        html main .container form .airportlocation p, body main .container form .airportlocation p {
+            margin-top: 0px;
+            padding-left: 40px;
+        }
+        html main .container form .request, body main .container form .request {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        html main form .request:nth-child(4), body main form .request:nth-child(4) {
+            padding-top: 40px;
+            justify-content: end;
+        }
+        html main .container form .request input, body main .container form .request input {
+            width: 20%;
+        }
+        html main .container form .request select, body main .container form .request select {
+            width: 35%;
+        }
+        html main .container button, body main .container button {
+            width: 32.5%;
+            background-color: #252525;
+            color: white;
+            border-radius: 0.5em;
+            padding-top: 7px;
+            padding-bottom: 7px;
+            font-size: 1.2em;
+            border: 1px solid #252525;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        html main .container button a, body main .container button a{
+            text-decoration: none;
+            color: white;
+        }
+        html main .container button:hover, body main .container button:hover {
+            background-color: white;
+            color: #252525;
+        }
+    </style>
+    <title>Upgrade to Pilot</title>
+</head>
+<body>
+
+    #include("navbar_Pilot.vm")
+
+<main>
+    <h1>Add a Flight</h1>
+
+    <div class="container">
+
+        <form method="POST">
+            <div class="request">
+                <label for="departureAirport">Departure Airport</label>
+                <select id="departureAirport"></select>
+                <label for="departureDate">Departure Date</label>
+                <input id="departureDate" type="date">
+            </div>
+
+            <div class="request">
+                <label for="arrivalAirport">Arrival Airport</label>
+                <select id="arrivalAirport"></select>
+                <label for="arrivalDate">Arrival Date</label>
+                <input id="arrivalDate" type="date">
+            </div>
+            <div class="request">
+                <p id="flightDuration">Flight Duration : 1 day and 3 hours</p>
+            </div>
+
+
+            <div class="request">
+                <button id="submitForm">Send the request</button>
+            </div>
+        </form>
+
+    </div>
+
+</main>
+
+<script>
+    const departureAirport = document.getElementById("departureAirport");
+    const departureDate = document.getElementById("departureDate");
+    const arrivalAirport = document.getElementById("arrivalAirport");
+    const arrivalDate = document.getElementById("arrivalDate");
+    const flightDuration = document.getElementById("flightDuration");
+
+    const btnSubmitForm = document.getElementById("submitForm");
+
+
+
+    window.onload = () => {
+
+       Airport();
+
+    }
+
+    btnSubmitForm.addEventListener("click", (e) => {
+        SaveFlight(CreateFlight());
+        const selector = document.querySelector(".optionairport");
+        console.log(selector);
+        e.preventDefault();
+        alert("Flight sent !");
+    });
+
+    function CreateFlight() {
+
+        return {
+            "arrivalDate": arrivalDate.value,
+            "departureDate": departureDate.value,
+            "flightTime": arrivalDate.value-departureDate.value,
+            "departureAirport": {
+                "id": departureAirport.text },
+            "arrivalAirport": {
+                "id": arrivalAirport.text}
+        };
+    }
+
+    function SaveFlight(flight) {
+        console.log("Sending the new Flight");
+        console.log(flight);
+        fetch("../api/pilot/addFlight", {
+            method : "POST",
+            headers: { 'Content-Type': 'application/json' },
+            body : JSON.stringify(flight)
+        })
+    }
+
+    function Airport() {
+        fetch("../api/allAirports")
+                .then(function(res) {
+                    if (res.ok) {
+                        return res.json();
+                    }
+                })
+                .then(function(value) {
+                    console.log(value);
+                    value.forEach((request) => loadAirport(request));
+                })
+                .catch(function(err) {
+                    // Une erreur est survenue
+                });
+    }
+
+
+    function loadAirport(airport) {
+        const option = document.createElement("option");
+        const option1 = document.createElement("option");
+        option.classList.add("optionairport");
+        option1.classList.add("optionairport");
+
+
+        option.innerText = airport.name+" - "+airport.country+" - "+airport.city ;
+        option1.innerText =  airport.name+" - "+airport.country+" - "+airport.city ;
+
+        option.onclick = () => console.log("click");
+        option1.onclick = () => console.log("click");
+
+
+        departureAirport.appendChild(option1);
+        arrivalAirport.appendChild(option);
+
+    }
+
+
+
+
+
+
+
+
+
+
+
+</script>
+</body>
+</html>

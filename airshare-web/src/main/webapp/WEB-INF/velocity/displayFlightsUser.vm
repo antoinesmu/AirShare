@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Display all the Users</title>
+
+    <style>
+
+        html main .table_container, body main .table_container {
+            margin: 0px 50px 0px 50px;
+        }
+        html main .table_container table, body main .table_container table {
+            width: 100%;
+            display: block;
+            text-align: left;
+            border-collapse: collapse;
+        }
+        html main .table_container table th, body main .table_container table th {
+            padding: 30px 0px 30px 0px;
+        }
+        html main .table_container table td, body main .table_container table td {
+            width: 500px;
+            padding: 5px 0px 5px 0px;
+        }
+
+    </style>
+</head>
+<body>
+    #include("navbar_User.vm")
+
+<main>
+    <h1>Display Flights !</h1>
+
+    <div class="table_container">
+        <table>
+            <tr>
+                <th>Departure Airport</th>
+                <th>Arrival Airport</th>
+                <th>Departure Date</th>
+                <th>Arrival Date</th>
+            </tr>
+            #foreach($user in $all_flights)
+                <tr>
+                    <td>$user.departureAirport.name</td>
+                    <td>$user.arrivalAirport.name</td>
+                    <td>$user.departureDate</td>
+                    <td>$user.arrivalDate</td>
+
+                </tr>
+            #end
+        </table>
+    </div>
+
+</main>
+
+
+
+</body>
+</html>

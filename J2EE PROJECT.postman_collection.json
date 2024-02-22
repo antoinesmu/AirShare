@@ -1,0 +1,305 @@
+{
+	"info": {
+		"_postman_id": "d1b5bfb0-1a46-4b96-bf2c-5d188003e5e9",
+		"name": "J2EE PROJECT",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "18460620"
+	},
+	"item": [
+		{
+			"name": "ALL_USERS",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8081/api/all_users",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"api",
+						"all_users"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "ALL_AIRPORTS",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8081/api/allAirports",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"api",
+						"allAirports"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "ALL_FLIGHTS",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8081/api/allFlights",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"api",
+						"allFlights"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET_USER",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n        \"login\": \"demandeur1\",\r\n        \"email\": \"demandeur1@pilot\",\r\n        \"status\": 10\r\n    }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8081/api/all_users/2",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"api",
+						"all_users",
+						"2"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET FORM FROM USER REQUESTS",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8081/api/requests/all_users",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"api",
+						"requests",
+						"all_users"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "UPGRADE_USER",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"id\":18,\"creationDate\":1667005177000,\"updateDate\":null,\"login\":\"demandeur2\",\"email\":\"demandeur2@pilot\",\"status\":10,\"password\":\"$argon2i$v=19$m=65536,t=5,p=1$e7u7rTG2eYG+t+2crzbOm2RGMN+iv3Oc+gUdjJMw/QVc3en1Pz/oR1YWX3BUfxMFDQRweEieEPAMFbDYccUfkAHFte6JHoLh6bubLZjaKPtxaMBc2XjBTJ7e7gzwKXBFuDn3tEH0zkNBb4TYgSCi+4qjDgYf4Z/ykBZFPYtwVWY$gc4M8Srx4Gd1FU9S55VrSlRQW0557QRpfXYrbkKMHP7PlDPmpqaDf0WcqM1JTM77OVHJQ0llL7r3OPZEqBfvtWvL9Vh3bYSfVAsezeg/wb59RiLzqLTFa0GfK3HlsK7Mqehjiy9mjHFOnJ/+BuSFZh2j3k5Rc+Lxtj56FodrTI4\"}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8081/api/admin/upgrade/2",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"api",
+						"admin",
+						"upgrade",
+						"2"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DECLINE_USER",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"id\":19,\"creationDate\":1667005198000,\"updateDate\":null,\"login\":\"demandeur3\",\"email\":\"demandeur3@pilot\",\"status\":10,\"password\":\"$argon2i$v=19$m=65536,t=5,p=1$eDy7ddmOUp9VkJHzH1yD57rlTU20lh81XSgCL7P4H5iJ3sWO8wlwA53G76VXVnTHRZLaa9rXNR0t2kIEksAg/oCGalX9BthhZNiismN3e6m/YMEqML1tMrLT/ldj6PAHG5leLrgbISapDkF8HF5Jf0s2YMQ59FW4zKhjd4jwHfw$8W61vXLJoMeBFHMgDlAJu3TwKGMc/0m0BxgE3bgDLYFHkNEDS72Wgo7+EDLrWulD+bMtL4OhGQ5lFV4F4xnQQa8N7abhSsjp2MnHxSwdN/jgWzr+AgozcTcAjyCRzcQPaAMAmwae8st1wH6h0h62skJGWh2SQQEUlwxhp8t/UTI\"}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8081/api/admin/decline/2",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"api",
+						"admin",
+						"decline",
+						"2"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "USER_REQUEST",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"id\": 18,\r\n    \"creationDate\": 1667005177000,\r\n    \"updateDate\": null,\r\n    \"login\": \"demandeur2\",\r\n    \"email\": \"demandeur2@pilot\",\r\n    \"status\": 10,\r\n    \"password\": \"$argon2i$v=19$m=65536,t=5,p=1$e7u7rTG2eYG+t+2crzbOm2RGMN+iv3Oc+gUdjJMw/QVc3en1Pz/oR1YWX3BUfxMFDQRweEieEPAMFbDYccUfkAHFte6JHoLh6bubLZjaKPtxaMBc2XjBTJ7e7gzwKXBFuDn3tEH0zkNBb4TYgSCi+4qjDgYf4Z/ykBZFPYtwVWY$gc4M8Srx4Gd1FU9S55VrSlRQW0557QRpfXYrbkKMHP7PlDPmpqaDf0WcqM1JTM77OVHJQ0llL7r3OPZEqBfvtWvL9Vh3bYSfVAsezeg/wb59RiLzqLTFa0GfK3HlsK7Mqehjiy9mjHFOnJ/+BuSFZh2j3k5Rc+Lxtj56FodrTI4\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8081/api/UserRequest/2",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"api",
+						"UserRequest",
+						"2"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "POST USER REQUEST",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"firstname\":\"zaki\",\"lastname\":\"gouizi\",\"licence\":\"F-LPA018\",\"licence_date\":1667598668000,\"nationality\":\"france\",\"user\":{\"id\":2}}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8081/api/requests",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"api",
+						"requests"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "ADD_AIRPORT",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"name\":\"CDG\", \"country\":\"France\", \"city\":\"Paris\"}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8081/api/pilot/addAirport",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"api",
+						"pilot",
+						"addAirport"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "ADD_FLIGHT",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n        \"id\": 1,\r\n        \"creationDate\": 1668073980000,\r\n        \"updateDate\": 1668073980000,\r\n        \"departureDate\": 1668073980000,\r\n        \"arrivalDate\": 1668073980000\r\n       \r\n        \r\n    }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8081/api/pilot/addFlight",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"api",
+						"pilot",
+						"addFlight"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

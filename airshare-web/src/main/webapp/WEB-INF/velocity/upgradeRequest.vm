@@ -1,0 +1,193 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <style>
+
+        html main, body main {
+            height: 85%;
+        }
+        html main .container, body main .container {
+            width: 100%;
+            min-height: 85%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        html main .container form, body main .container form {
+            width: 90%;
+            max-width: 600px;
+            display: flex;
+            flex-direction: column;
+            gap: 27px;
+        }
+        html main .container form .request, body main .container form .request {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        html main form .request:nth-child(7), body main form .request:nth-child(7) {
+            justify-content: end;
+        }
+        html main .container form .request input, body main .container form .request input {
+            width: 65%;
+        }
+        html main .container form .request select, body main .container form .request select {
+            width: 65%;
+        }
+        html main .container form .request textarea, body main .container form .request textarea {
+            width: 65%;
+            height: 60px;
+        }
+        html main .container button, body main .container button {
+            width: 32.5%;
+            background-color: #252525;
+            color: white;
+            border-radius: 0.5em;
+            padding-top: 7px;
+            padding-bottom: 7px;
+            font-size: 1.2em;
+            border: 1px solid #252525;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        html main .container button a, body main .container button a{
+            text-decoration: none;
+            color: white;
+        }
+        html main .container button:hover, body main .container button:hover {
+            background-color: white;
+            color: #252525;
+        }
+    </style>
+    <title>Upgrade to Pilot</title>
+</head>
+<body>
+
+#include("navbar_User.vm")
+
+<main>
+    <h1>Upgrade to Pilot !</h1>
+
+    <div class="container">
+
+        <form>
+            <div class="request">
+                <label for="firstname">Firstname</label>
+                <input type="text" id="firstname">
+            </div>
+            <div class="request">
+                <label for="lastname">Lastname</label>
+                <input type="text" id="lastname">
+            </div>
+            <div class="request">
+                <label for="licence">Licence number</label>
+                <input type="text" id="licence">
+            </div>
+            <div class="request">
+                <label for="licence_date">Date of obtaining</label>
+                <input type="date" id="licence_date" min="1980-01-01">
+            </div>
+            <div class="request">
+                <label for="nationality">Nationality</label>
+                <select  id="nationality">
+
+                </select>
+            </div>
+            <div class="request">
+                <label for="comment">Comment</label>
+                <textarea id="comment"></textarea>
+            </div>
+
+            <div class="request">
+                <button id="submitForm"><a href="/user/home">Send the request</a></button>
+            </div>
+        </form>
+
+    </div>
+
+</main>
+
+<script>
+    const firstnameInput = document.getElementById("firstname");
+    const lastnameInput = document.getElementById("lastname");
+    const licenceInput = document.getElementById("licence");
+    const licence_dateInput = document.getElementById("licence_date");
+    const nationalityInput = document.getElementById("nationality");
+    const commentInput = document.getElementById("comment");
+
+    const btnSubmitForm = document.getElementById("submitForm");
+
+    window.onload = () => {
+        console.log("Display country");
+        countryList();
+    }
+
+    btnSubmitForm.addEventListener("click", (e) => {
+        SaveForm(CreateForm());
+        SetRequestUser(${userId});
+        alert("Request sent !");
+    });
+
+
+    function CreateForm() {
+        return {
+            "firstname": firstnameInput.value,
+            "lastname": lastnameInput.value,
+            "licence": licenceInput.value,
+            "licence_date": licence_dateInput.value,
+            "nationality": nationalityInput.value,
+            "comment": commentInput.value,
+            "user": {"id": ${userId}}
+        };
+    }
+
+    function SaveForm(form) {
+        console.log("Sending the new request");
+        console.log(form);
+        fetch("../api/requests", {
+            method : "POST",
+            headers: { 'Content-Type': 'application/json' },
+            body : JSON.stringify(form)
+        })
+    }
+
+    function SetRequestUser(id) {
+        console.log("Set request User");
+        fetch("../api/UserRequest/"+id, {
+            method : "PUT"});
+    }
+
+
+    let today = new Date();
+    let dd = today.getDate();
+    let mm = today.getMonth() + 1; //January is 0!
+    const yyyy = today.getFullYear();
+
+    if (dd < 10) {
+        dd = '0' + dd;
+    }
+
+    if (mm < 10) {
+        mm = '0' + mm;
+    }
+
+    today = yyyy + '-' + mm + '-' + dd;
+    licence_dateInput.setAttribute("max", today);
+
+    function countryList() {
+        countryArray.forEach((country) => {
+            let option = document.createElement("option");
+            option.innerText = country;
+            nationalityInput.appendChild(option);
+        })
+    }
+
+    const countryArray = ["United States", "Canada", "Afghanistan", "Albania", "Algeria", "American Samoa", "Andorra", "Angola", "Anguilla", "Antarctica", "Antigua and/or Barbuda", "Argentina", "Armenia", "Aruba", "Australia", "Austria", "Azerbaijan", "Bahamas", "Bahrain", "Bangladesh", "Barbados", "Belarus", "Belgium", "Belize", "Benin", "Bermuda", "Bhutan", "Bolivia", "Bosnia and Herzegovina", "Botswana", "Bouvet Island", "Brazil", "British Indian Ocean Territory", "Brunei Darussalam", "Bulgaria", "Burkina Faso", "Burundi", "Cambodia", "Cameroon", "Cape Verde", "Cayman Islands", "Central African Republic", "Chad", "Chile", "China", "Christmas Island", "Cocos (Keeling) Islands", "Colombia", "Comoros", "Congo", "Cook Islands", "Costa Rica", "Croatia (Hrvatska)", "Cuba", "Cyprus", "Czech Republic", "Denmark", "Djibouti", "Dominica", "Dominican Republic", "East Timor", "Ecudaor", "Egypt", "El Salvador", "Equatorial Guinea", "Eritrea", "Estonia", "Ethiopia", "Falkland Islands (Malvinas)", "Faroe Islands", "Fiji", "Finland", "France", "France, Metropolitan", "French Guiana", "French Polynesia", "French Southern Territories", "Gabon", "Gambia", "Georgia", "Germany", "Ghana", "Gibraltar", "Greece", "Greenland", "Grenada", "Guadeloupe", "Guam", "Guatemala", "Guinea", "Guinea-Bissau", "Guyana", "Haiti", "Heard and Mc Donald Islands", "Honduras", "Hong Kong", "Hungary", "Iceland", "India", "Indonesia", "Iran (Islamic Republic of)", "Iraq", "Ireland", "Israel", "Italy", "Ivory Coast", "Jamaica", "Japan", "Jordan", "Kazakhstan", "Kenya", "Kiribati", "Korea, Democratic People's Republic of", "Korea, Republic of", "Kosovo", "Kuwait", "Kyrgyzstan", "Lao People's Democratic Republic", "Latvia", "Lebanon", "Lesotho", "Liberia", "Libyan Arab Jamahiriya", "Liechtenstein", "Lithuania", "Luxembourg", "Macau", "Macedonia", "Madagascar", "Malawi", "Malaysia", "Maldives", "Mali", "Malta", "Marshall Islands", "Martinique", "Mauritania", "Mauritius", "Mayotte", "Mexico", "Micronesia, Federated States of", "Moldova, Republic of", "Monaco", "Mongolia", "Montserrat", "Morocco", "Mozambique", "Myanmar", "Namibia", "Nauru", "Nepal", "Netherlands", "Netherlands Antilles", "New Caledonia", "New Zealand", "Nicaragua", "Niger", "Nigeria", "Niue", "Norfork Island", "Northern Mariana Islands", "Norway", "Oman", "Pakistan", "Palau", "Panama", "Papua New Guinea", "Paraguay", "Peru", "Philippines", "Pitcairn", "Poland", "Portugal", "Puerto Rico", "Qatar", "Reunion", "Romania", "Russian Federation", "Rwanda", "Saint Kitts and Nevis", "Saint Lucia", "Saint Vincent and the Grenadines", "Samoa", "San Marino", "Sao Tome and Principe", "Saudi Arabia", "Senegal", "Seychelles", "Sierra Leone", "Singapore", "Slovakia", "Slovenia", "Solomon Islands", "Somalia", "South Africa", "South Georgia South Sandwich Islands", "South Sudan", "Spain", "Sri Lanka", "St. Helena", "St. Pierre and Miquelon", "Sudan", "Suriname", "Svalbarn and Jan Mayen Islands", "Swaziland", "Sweden", "Switzerland", "Syrian Arab Republic", "Taiwan", "Tajikistan", "Tanzania, United Republic of", "Thailand", "Togo", "Tokelau", "Tonga", "Trinidad and Tobago", "Tunisia", "Turkey", "Turkmenistan", "Turks and Caicos Islands", "Tuvalu", "Uganda", "Ukraine", "United Arab Emirates", "United Kingdom", "United States minor outlying islands", "Uruguay", "Uzbekistan", "Vanuatu", "Vatican City State", "Venezuela", "Vietnam", "Virigan Islands (British)", "Virgin Islands (U.S.)", "Wallis and Futuna Islands", "Western Sahara", "Yemen", "Yugoslavia", "Zaire", "Zambia", "Zimbabwe"];
+</script>
+</body>
+</html>
